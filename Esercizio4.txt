@@ -79,6 +79,7 @@ AS
  BEGIN
  UPDATE Impiegato
  SET Cognome = @Cognome,
+ SET Nome = @Nome,
  CodiceFiscale = @CodiceFiscale,
  Eta = @Eta,
  RedditoMensile = @RedditoMensile,
