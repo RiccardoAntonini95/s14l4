@@ -1,0 +1,100 @@
+Popolazione Tabella Impiegato:
+
+INSERT INTO Impiegato(IdImpegato, Cognome, Nome, CodiceFiscale, Eta, RedditoMensile, DetrazioneFiscale, IdImpiego, Data_Assunzione)
+ VALUES (2, 'Riccardo2', 'Antonini2', 'NTNRCR95D12H282G', 27, 1000, 1, 1, '2024-04-18')
+
+-----------------------------------------------------------------------
+QUERY SELECT:
+
+a)SELECT * FROM Impiegato
+ WHERE Eta > 29
+
+b)SELECT * FROM Impiegato
+WHERE RedditoMensile >= 800
+
+c)SELECT * FROM Impiegato
+WHERE DetrazioneFiscale = 1
+
+d)SELECT * FROM Impiegato
+WHERE DetrazioneFiscale = 0
+
+e)SELECT * FROM Impiegato
+ WHERE Cognome like 'g%'
+ ORDER BY Cognome
+
+f)SELECT COUNT(*) FROM Impiegato
+
+g)SELECT SUM(RedditoMensile) as TotaleRedditi FROM Impiegato
+
+h)SELECT AVG(RedditoMensile) as MediaRedditi FROM Impiegato
+
+i)SELECT MAX(RedditoMensile) as RedditoMaggiore FROM Impiegato
+
+j)SELECT MIN(RedditoMensile) as RedditoMinore FROM Impiegato
+
+k)SELECT * FROM Impiegato
+ WHERE Data_Assunzione between '2007-01-01' and '2008-01-01'
+
+l)DECLARE @Impiego nvarchar(50) = 'Motocoltivatore'
+SELECT TipoImpiego, Cognome, Nome FROM Impiegato as i
+ INNER JOIN Impiego as ii ON
+ i.IdImpiego = ii.IdImpiego
+ WHERE ii.TipoImpiego = @Impiego
+
+g)SELECT AVG(Eta) as EtaMediaImpiegati FROM Impiegato 
+
+-------------------------------------------------------------------
+PROCEDURE:
+
+a)CREATE PROCEDURE MemorizzaImpiegato 
+@IdImpiegato int,
+@Cognome nvarchar(50),
+@Nome nvarchar(50),
+@CodiceFiscale char(16),
+@Eta int,
+@RedditoMensile smallmoney,
+@DetrazioneFiscale bit, 
+@IdImpiego int,
+@Data_Assunzione date
+
+AS
+ BEGIN
+ INSERT INTO Impiegato(IdImpegato, Cognome, Nome, CodiceFiscale, Eta, RedditoMensile, DetrazioneFiscale, IdImpiego, Data_Assunzione)
+ VALUES (@IdImpiegato, @Cognome, @Nome, @CodiceFiscale, @Eta, @RedditoMensile, @DetrazioneFiscale, @IdImpiego, @Data_Assunzione)
+ END
+GO
+
+b)CREATE PROCEDURE AggiornaImpiegato 
+@IdImpiegato int,
+@Cognome nvarchar(50),
+@Nome nvarchar(50),
+@CodiceFiscale char(16),
+@Eta int,
+@RedditoMensile smallmoney,
+@DetrazioneFiscale bit, 
+@IdImpiego int,
+@Data_Assunzione date
+
+AS
+ BEGIN
+ UPDATE Impiegato
+ SET Cognome = @Cognome,
+ CodiceFiscale = @CodiceFiscale,
+ Eta = @Eta,
+ RedditoMensile = @RedditoMensile,
+ DetrazioneFiscale = @DetrazioneFiscale,
+ IdImpiego = @IdImpiego,
+ Data_Assunzione = @Data_Assunzione
+ WHERE IdImpegato = @IdImpiegato
+ END
+GO
+
+c)CREATE PROCEDURE EliminaImpiegato 
+@IdImpiegato int
+
+AS
+ BEGIN
+ DELETE FROM Impiegato
+ WHERE IdImpegato = @IdImpiegato
+ END
+GO
